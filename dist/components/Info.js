@@ -12,10 +12,6 @@ var _map = require('babel-runtime/core-js/map');
 
 var _map2 = _interopRequireDefault(_map);
 
-var _assign = require('babel-runtime/core-js/object/assign');
-
-var _assign2 = _interopRequireDefault(_assign);
-
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -62,200 +58,76 @@ var _markdown = require('./markdown');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+  This is an awesome looking button for React.
+*/
 var stylesheet = {
-  link: {
-    base: {
-      fontFamily: 'sans-serif',
-      fontSize: 12,
-      display: 'block',
-      position: 'fixed',
-      textDecoration: 'none',
-      background: '#28c',
-      color: '#fff',
-      padding: '5px 15px',
-      cursor: 'pointer'
-    },
-    topRight: {
-      top: 0,
-      right: 0,
-      borderRadius: '0 0 0 5px'
-    }
-  },
-  info: {
-    position: 'absolute',
-    background: 'white',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    padding: '0 40px',
-    overflow: 'auto'
-  },
-  children: {
-    position: 'relative',
-    zIndex: 0
-  },
   infoBody: (0, _extends3.default)({}, _theme.baseFonts, {
     fontWeight: 300,
     lineHeight: 1.45,
     fontSize: 15
   }),
-  infoContent: {
-    marginBottom: 0
-  },
   header: {
     h1: {
-      margin: '20px 0 0 0',
+      margin: 0,
       padding: 0,
-      fontSize: 35
+      fontSize: 34
     },
     h2: {
       margin: '0 0 10px 0',
       padding: 0,
       fontWeight: 400,
-      fontSize: 22
+      fontSize: 14,
+      color: '#828282',
+      textTransform: 'uppercase'
+    },
+    h3: {
+      margin: '0 0 10px 0',
+      padding: 0,
+      fontWeight: 600,
+      fontSize: 18
+    },
+    h4: {
+      margin: '0 0 5px 0',
+      padding: 0,
+      fontWeight: 600,
+      fontSize: 15
     },
     body: {
-      borderBottom: '1px solid #eee',
-      marginBottom: 10
+      borderBottom: '1px solid #eaeaea',
+      marginBottom: 20
     }
   },
-  source: {
-    h1: {
-      margin: '20px 0 0 0',
-      padding: '0 0 5px 0',
-      fontSize: 25,
-      borderBottom: '1px solid #EEE'
-    }
+  section: {
+    margin: '0 0 20px 0'
   },
-  propTableHead: {
-    margin: '20px 0 0 0'
+  subSection: {
+    padding: '0 15px',
+    margin: '0 0 20px 0'
   }
 };
 
-var Story = function (_React$Component) {
-  (0, _inherits3.default)(Story, _React$Component);
+var Info = function (_React$Component) {
+  (0, _inherits3.default)(Info, _React$Component);
 
-  function Story() {
-    var _ref;
+  function Info(props) {
+    (0, _classCallCheck3.default)(this, Info);
 
-    (0, _classCallCheck3.default)(this, Story);
+    var _this = (0, _possibleConstructorReturn3.default)(this, (Info.__proto__ || (0, _getPrototypeOf2.default)(Info)).call(this, props));
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (_ref = Story.__proto__ || (0, _getPrototypeOf2.default)(Story)).call.apply(_ref, [this].concat(args)));
-
-    _this.state = { open: false };
     _markdownToReactComponents2.default.configure(_this.props.mtrcConf);
     return _this;
   }
 
-  (0, _createClass3.default)(Story, [{
-    key: '_renderStory',
-    value: function _renderStory() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        this.props.children
-      );
-    }
-  }, {
-    key: '_renderInline',
-    value: function _renderInline() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'div',
-          { style: stylesheet.infoPage },
-          _react2.default.createElement(
-            'div',
-            { style: stylesheet.infoBody },
-            this._getInfoHeader()
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          null,
-          this._renderStory()
-        ),
-        _react2.default.createElement(
-          'div',
-          { style: stylesheet.infoPage },
-          _react2.default.createElement(
-            'div',
-            { style: stylesheet.infoBody },
-            this._getInfoContent(),
-            this._getSourceCode(),
-            this._getPropTables()
-          )
-        )
-      );
-    }
-  }, {
-    key: '_renderOverlay',
-    value: function _renderOverlay() {
-      var _this2 = this;
-
-      var linkStyle = (0, _extends3.default)({}, stylesheet.link.base, stylesheet.link.topRight);
-
-      var infoStyle = (0, _assign2.default)({}, stylesheet.info);
-      if (!this.state.open) {
-        infoStyle.display = 'none';
-      }
-
-      var openOverlay = function openOverlay() {
-        _this2.setState({ open: true });
-        return false;
-      };
-
-      var closeOverlay = function closeOverlay() {
-        _this2.setState({ open: false });
-        return false;
-      };
-
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'div',
-          { style: stylesheet.children },
-          this.props.children
-        ),
-        _react2.default.createElement(
-          'a',
-          { style: linkStyle, onClick: openOverlay },
-          '?'
-        ),
-        _react2.default.createElement(
-          'div',
-          { style: infoStyle },
-          _react2.default.createElement(
-            'a',
-            { style: linkStyle, onClick: closeOverlay },
-            '\xD7'
-          ),
-          _react2.default.createElement(
-            'div',
-            { style: stylesheet.infoPage },
-            _react2.default.createElement(
-              'div',
-              { style: stylesheet.infoBody },
-              this._getInfoHeader(),
-              this._getInfoContent(),
-              this._getSourceCode(),
-              this._getPropTables()
-            )
-          )
-        )
-      );
-    }
-  }, {
+  (0, _createClass3.default)(Info, [{
     key: '_getInfoHeader',
     value: function _getInfoHeader() {
-      if (!this.props.context || !this.props.showHeader) {
+      var _props = this.props,
+          context = _props.context,
+          showHeader = _props.showHeader;
+
+
+      if (!context || !showHeader) {
         return null;
       }
 
@@ -265,12 +137,12 @@ var Story = function (_React$Component) {
         _react2.default.createElement(
           'h1',
           { style: stylesheet.header.h1 },
-          this.props.context.kind
+          context.kind
         ),
         _react2.default.createElement(
           'h2',
           { style: stylesheet.header.h2 },
-          this.props.context.story
+          context.story
         )
       );
     }
@@ -294,7 +166,7 @@ var Story = function (_React$Component) {
       }).join('\n');
       return _react2.default.createElement(
         'div',
-        { style: stylesheet.infoContent },
+        { style: stylesheet.section },
         (0, _markdownToReactComponents2.default)(source).tree
       );
     }
@@ -307,18 +179,25 @@ var Story = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        null,
+        { style: stylesheet.section },
         _react2.default.createElement(
-          'h1',
-          { style: stylesheet.source.h1 },
+          'h3',
+          { style: stylesheet.header.h3 },
           'Story Source'
         ),
         _react2.default.createElement(
-          _markdown.Pre,
-          null,
-          _react2.default.Children.map(this.props.children, function (root, idx) {
-            return _react2.default.createElement(_Node2.default, { key: idx, depth: 0, node: root });
-          })
+          'div',
+          { style: stylesheet.subSection },
+          _react2.default.createElement(
+            _markdown.Pre,
+            null,
+            _react2.default.Children.map(this.props.children, function (root, idx) {
+              // console.log(root, 'root');
+              // console.log(root.__docgenInfo, '__docgenInfo');
+              // console.log(STORYBOOK_REACT_CLASSES, 'STORYBOOK_REACT_CLASSES');
+              return _react2.default.createElement(_Node2.default, { key: idx, depth: 0, node: root });
+            })
+          )
         )
       );
     }
@@ -372,13 +251,13 @@ var Story = function (_React$Component) {
       var propTables = array.map(function (type, idx) {
         return _react2.default.createElement(
           'div',
-          { key: idx },
+          { style: stylesheet.subSection, key: idx },
           _react2.default.createElement(
-            'h2',
-            { style: stylesheet.propTableHead },
-            '"',
+            'h4',
+            { style: stylesheet.header.h4 },
+            '<',
             type.displayName || type.name,
-            '" Component'
+            ' /> Component:'
           ),
           _react2.default.createElement(_PropTable2.default, { type: type })
         );
@@ -390,47 +269,48 @@ var Story = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        null,
+        { style: stylesheet.section },
         _react2.default.createElement(
-          'h1',
-          { style: stylesheet.source.h1 },
-          'Prop Types'
+          'h3',
+          { style: stylesheet.header.h3 },
+          'Documentation'
         ),
         propTables
       );
-
-      return;
     }
   }, {
     key: 'render',
     value: function render() {
-      if (this.props.showInline) {
-        return this._renderInline();
-      }
-
-      return this._renderOverlay();
+      return _react2.default.createElement(
+        'div',
+        { style: stylesheet.infoBody },
+        this._getInfoHeader(),
+        this._getInfoContent(),
+        this._getSourceCode(),
+        this._getPropTables()
+      );
     }
   }]);
-  return Story;
+  return Info;
 }(_react2.default.Component);
 
-exports.default = Story;
+exports.default = Info;
 
 
-Story.displayName = 'Story';
-Story.propTypes = {
+Info.displayName = 'Story';
+Info.propTypes = {
+  /**
+    Label for the button.
+  */
   context: _react2.default.PropTypes.object,
-  info: _react2.default.PropTypes.string,
   propTables: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.func),
-  showInline: _react2.default.PropTypes.bool,
   showHeader: _react2.default.PropTypes.bool,
   showSource: _react2.default.PropTypes.bool,
   children: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.object, _react2.default.PropTypes.array]),
   mtrcConf: _react2.default.PropTypes.object
 };
 
-Story.defaultProps = {
-  showInline: false,
+Info.defaultProps = {
   showHeader: true,
   showSource: true,
   mtrcConf: {}

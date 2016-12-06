@@ -1,9 +1,8 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+		value: true
 });
-exports.Story = undefined;
 
 var _assign = require('babel-runtime/core-js/object/assign');
 
@@ -13,89 +12,87 @@ var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
 
+exports.addInfo = addInfo;
 exports.setDefaults = setDefaults;
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Story2 = require('./components/Story');
+var _storybookAddons = require('@kadira/storybook-addons');
 
-var _Story3 = _interopRequireDefault(_Story2);
+var _storybookAddons2 = _interopRequireDefault(_storybookAddons);
+
+var _server = require('react-dom/server');
+
+var _server2 = _interopRequireDefault(_server);
+
+var _Info = require('./components/Info');
+
+var _Info2 = _interopRequireDefault(_Info);
 
 var _markdown = require('./components/markdown');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Story = exports.Story = _Story3.default;
-
 var defaultOptions = {
-  inline: false,
-  header: true,
-  source: true,
-  propTables: []
+		header: true,
+		source: true,
+		propTables: []
 };
 
 var defaultMtrcConf = {
-  h1: _markdown.H1,
-  h2: _markdown.H2,
-  h3: _markdown.H3,
-  h4: _markdown.H4,
-  h5: _markdown.H5,
-  h6: _markdown.H6,
-  code: _markdown.Code,
-  p: _markdown.P,
-  a: _markdown.A,
-  li: _markdown.LI,
-  ul: _markdown.UL
+		h1: _markdown.H1,
+		h2: _markdown.H2,
+		h3: _markdown.H3,
+		h4: _markdown.H4,
+		h5: _markdown.H5,
+		h6: _markdown.H6,
+		code: _markdown.Code,
+		p: _markdown.P,
+		a: _markdown.A,
+		li: _markdown.LI,
+		ul: _markdown.UL
 };
 
-exports.default = {
-  addWithInfo: function addWithInfo(storyName, info, storyFn, _options) {
+function addInfo(storyFn, context, _options) {
+		// console.log(context, 'context');
+		// console.log(storyFn, 'storyFn');
 
-    if (typeof storyFn !== 'function') {
-      if (typeof info === 'function') {
-        _options = storyFn;
-        storyFn = info;
-        info = '';
-      } else {
-        throw new Error('No story defining function has been specified');
-      }
-    }
+		var channel = _storybookAddons2.default.getChannel();
+		var mtrcConf = (0, _extends3.default)({}, defaultMtrcConf);
+		var options = (0, _extends3.default)({}, defaultOptions, _options);
 
-    var options = (0, _extends3.default)({}, defaultOptions, _options);
+		// props.propTables can only be either an array of components or null
+		// propTables option is allowed to be set to 'false' (a boolean)
+		// if the option is false, replace it with null to avoid react warnings
+		if (!options.propTables) {
+				options.propTables = null;
+		}
 
-    // props.propTables can only be either an array of components or null
-    // propTables option is allowed to be set to 'false' (a boolean)
-    // if the option is false, replace it with null to avoid react warnings
-    if (!options.propTables) {
-      options.propTables = null;
-    }
+		if (options && options.mtrcConf) {
+				(0, _assign2.default)(mtrcConf, options.mtrcConf);
+		}
 
-    var mtrcConf = (0, _extends3.default)({}, defaultMtrcConf);
-    if (options && options.mtrcConf) {
-      (0, _assign2.default)(mtrcConf, options.mtrcConf);
-    }
+		var props = {
+				context: context,
+				children: storyFn(context),
+				showHeader: Boolean(options.header),
+				showSource: Boolean(options.source),
+				propTables: options.propTables,
+				mtrcConf: mtrcConf
+		};
 
-    this.add(storyName, function (context) {
-      var props = {
-        info: info,
-        context: context,
-        showInline: Boolean(options.inline),
-        showHeader: Boolean(options.header),
-        showSource: Boolean(options.source),
-        propTables: options.propTables,
-        mtrcConf: mtrcConf
-      };
+		// console.log(Info.__docgenInfo, 'Info __docgenInfo');
 
-      return _react2.default.createElement(
-        Story,
-        props,
-        storyFn(context)
-      );
-    });
-  }
-};
+		var html = _server2.default.renderToStaticMarkup(_react2.default.createElement(_Info2.default, props));
+
+		// send the info to the channel.
+		channel.emit('kadira/info/add_with_info', html);
+
+		return storyFn();
+}
+
 function setDefaults(newDefaults) {
-  return (0, _assign2.default)(defaultOptions, newDefaults);
+		return (0, _assign2.default)(defaultOptions, newDefaults);
 };

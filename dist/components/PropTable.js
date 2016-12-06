@@ -54,9 +54,59 @@ for (var typeName in _react2.default.PropTypes) {
 
 var stylesheet = {
   propTable: {
-    marginLeft: -10,
-    borderSpacing: '10px 5px',
-    borderCollapse: 'separate'
+    fontSize: 14,
+    width: '100%',
+    maxWidth: '100%',
+    borderSpacing: '0',
+    borderCollapse: 'collapse'
+  },
+  req: {
+    fontWeight: 600
+  },
+  notReq: {
+    color: '#828282'
+  },
+  propTableThead: {
+    th: {
+      padding: 10,
+      verticalAlign: 'bottom',
+      borderBottom: '2px solid #eaeaea',
+      textAlign: 'left'
+    }
+  },
+  propTableTbody: {
+    td: {
+      padding: 10,
+      borderTop: '1px solid #eaeaea',
+      verticalAlign: 'top',
+      textAlign: 'left'
+    }
+  },
+  valueStyles: {
+    func: {
+      color: '#1fad83'
+    },
+    attr: {
+      color: '#a6a28c'
+    },
+    object: {
+      color: '#d73737'
+    },
+    array: {
+      color: '#d43552'
+    },
+    number: {
+      color: '#b65611'
+    },
+    string: {
+      color: '#6684e1'
+    },
+    bool: {
+      color: '#b854d4'
+    },
+    empty: {
+      color: '#9a967f'
+    }
   }
 };
 
@@ -86,7 +136,15 @@ var PropTable = function (_React$Component) {
           }
           var typeInfo = type.propTypes[property];
           var propType = PropTypesMap.get(typeInfo) || 'other';
-          var required = typeInfo.isRequired === undefined ? 'yes' : 'no';
+          var required = typeInfo.isRequired === undefined ? _react2.default.createElement(
+            'span',
+            { style: stylesheet.req },
+            '\u2713'
+          ) : _react2.default.createElement(
+            'span',
+            { style: stylesheet.notReq },
+            '-'
+          );
           props[property] = { property: property, propType: propType, required: required };
         }
       }
@@ -124,58 +182,66 @@ var PropTable = function (_React$Component) {
         { style: stylesheet.propTable },
         _react2.default.createElement(
           'thead',
-          null,
+          { style: stylesheet.propTableThead.base },
           _react2.default.createElement(
             'tr',
-            null,
+            { style: stylesheet.propTableThead.tr },
             _react2.default.createElement(
               'th',
-              null,
-              'property'
+              { style: stylesheet.propTableThead.th },
+              'Property'
             ),
             _react2.default.createElement(
               'th',
-              null,
-              'propType'
+              { style: stylesheet.propTableThead.th },
+              'Default'
             ),
             _react2.default.createElement(
               'th',
-              null,
-              'required'
+              { style: stylesheet.propTableThead.th },
+              'PropType'
             ),
             _react2.default.createElement(
               'th',
-              null,
-              'default'
+              { style: stylesheet.propTableThead.th },
+              'Required'
             )
           )
         ),
         _react2.default.createElement(
           'tbody',
-          null,
+          { style: stylesheet.propTableTbody.base },
           array.map(function (row) {
             return _react2.default.createElement(
               'tr',
-              { key: row.property },
+              { key: row.property, style: stylesheet.propTableTbody.tr },
               _react2.default.createElement(
                 'td',
-                null,
+                { style: stylesheet.propTableTbody.td },
                 row.property
               ),
               _react2.default.createElement(
                 'td',
-                null,
-                row.propType
+                { style: stylesheet.propTableTbody.td },
+                row.defaultValue === undefined ? _react2.default.createElement(
+                  'span',
+                  { style: stylesheet.notReq },
+                  '-'
+                ) : _react2.default.createElement(_PropVal2.default, { val: row.defaultValue })
               ),
               _react2.default.createElement(
                 'td',
-                null,
+                { style: stylesheet.propTableTbody.td },
+                _react2.default.createElement(
+                  'span',
+                  { style: stylesheet.valueStyles[row.propType] },
+                  row.propType
+                )
+              ),
+              _react2.default.createElement(
+                'td',
+                { style: stylesheet.propTableTbody.td },
                 row.required
-              ),
-              _react2.default.createElement(
-                'td',
-                null,
-                row.defaultValue === undefined ? '-' : _react2.default.createElement(_PropVal2.default, { val: row.defaultValue })
               )
             );
           })

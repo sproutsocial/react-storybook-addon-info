@@ -45,12 +45,21 @@ export class Code extends React.Component {
 export class Pre extends React.Component {
   render() {
     const style = {
-      fontSize: '.88em',
       fontFamily: 'Menlo, Monaco, "Courier New", monospace',
-      backgroundColor: '#fafafa',
-      padding: '.5rem',
-      lineHeight: 1.5,
-      overflowX: 'scroll',
+      display: 'block',
+      padding: '10px 5px',
+      margin: '0',
+      fontSize: '13px',
+      lineHeight: '1.42',
+      color: '#20201d',
+      wordBreak: 'break-all',
+      wordWrap: 'break-word',
+      backgroundColor: '#fefbec',
+      border: '1px solid #e8e4cf',
+      borderRadius: '4px',
+      overflow: 'auto',
+      width: '100%',
+      whiteSpace: 'pre-wrap',
     };
 
     return <pre style={style}>{this.props.children}</pre>;

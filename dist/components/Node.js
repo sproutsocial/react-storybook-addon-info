@@ -39,10 +39,7 @@ var _Props2 = _interopRequireDefault(_Props);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var stylesheet = {
-  containerStyle: {},
-  tagStyle: {
-    color: '#777'
-  }
+  containerStyle: {}
 };
 
 var Node = function (_React$Component) {
@@ -56,10 +53,9 @@ var Node = function (_React$Component) {
   (0, _createClass3.default)(Node, [{
     key: 'render',
     value: function render() {
-      var _props = this.props;
-      var node = _props.node;
-      var depth = _props.depth;
-      var tagStyle = stylesheet.tagStyle;
+      var _props = this.props,
+          node = _props.node,
+          depth = _props.depth;
       var containerStyle = stylesheet.containerStyle;
 
 
@@ -70,13 +66,13 @@ var Node = function (_React$Component) {
 
       (0, _assign2.default)(containerStyle, leftPad);
 
-      var _getData = getData(node);
-
-      var name = _getData.name;
-      var text = _getData.text;
-      var children = _getData.children;
+      var _getData = getData(node),
+          name = _getData.name,
+          text = _getData.text,
+          children = _getData.children;
 
       // Just text
+
 
       if (!name) {
         return _react2.default.createElement(
@@ -84,7 +80,7 @@ var Node = function (_React$Component) {
           { style: containerStyle },
           _react2.default.createElement(
             'span',
-            { style: tagStyle },
+            null,
             text
           )
         );
@@ -97,14 +93,14 @@ var Node = function (_React$Component) {
           { style: containerStyle },
           _react2.default.createElement(
             'span',
-            { style: tagStyle },
+            null,
             '<',
             name
           ),
           _react2.default.createElement(_Props2.default, { node: node, singleLine: true }),
           _react2.default.createElement(
             'span',
-            { style: tagStyle },
+            null,
             '/>'
           )
         );
@@ -122,14 +118,14 @@ var Node = function (_React$Component) {
           { style: containerStyleCopy },
           _react2.default.createElement(
             'span',
-            { style: tagStyle },
+            null,
             '<',
             name
           ),
           _react2.default.createElement(_Props2.default, { node: node }),
           _react2.default.createElement(
             'span',
-            { style: tagStyle },
+            null,
             '>'
           )
         ),
@@ -141,7 +137,7 @@ var Node = function (_React$Component) {
           { style: containerStyleCopy },
           _react2.default.createElement(
             'span',
-            { style: tagStyle },
+            null,
             '</',
             name,
             '>'
