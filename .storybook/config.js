@@ -1,14 +1,10 @@
 import React from 'react';
-import { configure, setAddon, addDecorator } from '@kadira/storybook';
-import InfoAddon from '../src/';
+import { configure } from '@kadira/storybook';
+// import { setDefaults } from '../src';
 
-addDecorator((story) => (
-  <div style={{padding: 20}}>
-    {story()}
-  </div>
-));
-
-setAddon(InfoAddon);
+// setDefaults({
+// 	header: true
+// });
 
 configure(function () {
   require('../example/story');

@@ -44,7 +44,6 @@ export default class Props extends React.Component {
               <span style={propValueStyle}><PropVal val={props[name]} /></span>
             </span>
           )}
-
           {i === (names.length - 1) && (
             breakIntoNewLines ? <br /> : endingSpace
           )}

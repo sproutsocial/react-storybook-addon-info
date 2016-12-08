@@ -3,10 +3,7 @@ import Props from './Props'
 
 
 const stylesheet = {
-  containerStyle: {},
-  tagStyle: {
-    color: '#777',
-  }
+  containerStyle: {}
 }
 
 export default class Node extends React.Component {
@@ -16,7 +13,7 @@ export default class Node extends React.Component {
 
   render(){
     const {node, depth} = this.props;
-    let {tagStyle, containerStyle} = stylesheet;
+    let {containerStyle} = stylesheet;
 
     var leftPad = {
       paddingLeft: 3 + (depth + 1) * 15,
@@ -30,16 +27,16 @@ export default class Node extends React.Component {
     // Just text
     if (!name) {
       return <div style={containerStyle}>
-        <span style={tagStyle}>{text}</span>
+        <span>{text}</span>
       </div>;
     }
 
     // Single-line tag
     if (!children) {
       return <div style={containerStyle}>
-        <span style={tagStyle}>&lt;{name}</span>
+        <span>&lt;{name}</span>
           <Props node={node} singleLine />
-        <span style={tagStyle}>/&gt;</span>
+        <span>/&gt;</span>
       </div>;
     }
 
@@ -50,15 +47,15 @@ export default class Node extends React.Component {
     return (
       <div>
         <div style={containerStyleCopy}>
-          <span style={tagStyle}>&lt;{name}</span>
+          <span>&lt;{name}</span>
             <Props node={node} />
-          <span style={tagStyle}>&gt;</span>
+          <span>&gt;</span>
         </div>
         {React.Children.map(children, childElement => (
           <Node node={childElement} depth={depth + 1} />
         ))}
         <div style={containerStyleCopy}>
-          <span style={tagStyle}>&lt;/{name}&gt;</span>
+          <span>&lt;/{name}&gt;</span>
         </div>
       </div>
     );

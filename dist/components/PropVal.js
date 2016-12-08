@@ -44,36 +44,29 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var valueStyles = {
   func: {
-    color: '#170'
+    color: '#1fad83'
   },
-
   attr: {
-    color: '#666'
+    color: '#a6a28c'
   },
-
   object: {
-    color: '#666'
+    color: '#d73737'
   },
-
   array: {
-    color: '#666'
+    color: '#d43552'
   },
-
   number: {
-    color: '#a11'
+    color: '#b65611'
   },
-
   string: {
-    color: '#22a',
+    color: '#6684e1',
     wordBreak: 'break-word'
   },
-
   bool: {
-    color: '#a11'
+    color: '#b854d4'
   },
-
   empty: {
-    color: '#777'
+    color: '#9a967f'
   }
 };
 
